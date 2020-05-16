@@ -5,6 +5,7 @@ public enum NodeType {
     case wall
     case start
     case end
+    case chosen
 }
 
 public class Node {
@@ -14,6 +15,7 @@ public class Node {
     public var distance: Int
     public var type: NodeType
     public var prevDistance: Int
+    public var added: Bool
     public init(_ i: Int, _ j: Int) {
         self.i = i
         self.j = j
@@ -21,6 +23,7 @@ public class Node {
         self.type = .none
         self.distance = Int.max
         self.prevDistance = -1
+        self.added = false
     }
     public var description: String { return "Node: (\(i),\(j)) = d:\(distance)" }
 }

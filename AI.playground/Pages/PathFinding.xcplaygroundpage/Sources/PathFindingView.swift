@@ -19,14 +19,21 @@ public class PathFindingView: UIView {
             }
             grid.append(row)
         }
-        grid[(size/length)-1][0].type = .start
-        grid[0][(size/length)-1].type = .end
         
-        self.pathFind = Dijkstra(grid, grid[(size/length)-1][0], grid[0][(size/length)-1])
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(start), userInfo: nil, repeats: true)
+        let startN = grid[(size/length)-4][4]
+        startN.type = .start
+        let endN = grid[4][(size/length)-4]
+        endN.type = .end
+        
+        self.pathFind = Dijkstra(grid, startN, endN)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(start), userInfo: nil, repeats: false)
     }
     
     @objc func start() {
+        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+    }
+    
+    @objc func update() {
         pathFind!.calc()
         self.setNeedsDisplay()
     }
@@ -58,6 +65,9 @@ public class PathFindingView: UIView {
                     break
                 case NodeType.end:
                     drawRect(i: i, j: j, col: UIColor.red)
+                    break
+                case NodeType.chosen:
+                    drawRect(i: i, j: j, col: UIColor.yellow)
                     break
                 }
             }
