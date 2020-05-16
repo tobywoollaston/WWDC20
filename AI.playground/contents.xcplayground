@@ -3,5 +3,6 @@
     <pages>
         <page name='BasicNeuralNetwork'/>
         <page name='PathFinding'/>
+        <page name='PathFinding 2'/>
     </pages>
 </playground>
