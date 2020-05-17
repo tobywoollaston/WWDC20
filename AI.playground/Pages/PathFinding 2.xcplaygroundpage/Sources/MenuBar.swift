@@ -3,6 +3,7 @@ import UIKit
 public enum Algorithms: Int {
     case dijkstra
     case astar
+    case greedyBFS
     static let count: Int = {
         var max: Int = 0
         while let _ = Algorithms(rawValue: max) { max += 1 }
@@ -90,6 +91,9 @@ class MenuBar: UIView {
             break
         case Algorithms.astar:
             algoPicker.setTitle("A* Search", for: .normal)
+            break
+        case Algorithms.greedyBFS:
+            algoPicker.setTitle("Greedy Best First Search", for: .normal)
             break
         }
     }

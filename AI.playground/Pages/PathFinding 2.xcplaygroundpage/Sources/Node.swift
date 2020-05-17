@@ -26,7 +26,7 @@ public class Node {
         self.heuristic = 0
         self.added = false
     }
-    public var description: String { return "Node: (\(i),\(j)) = d:\(distance)" }
+    public var description: String { return "Node: (\(i),\(j)) = v:\(visited), p:\(previousNode == nil)" }
     public func copy() -> Node {
         let copy = Node(i, j)
         copy.type = type

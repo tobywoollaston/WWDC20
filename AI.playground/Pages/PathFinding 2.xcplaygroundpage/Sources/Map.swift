@@ -10,14 +10,24 @@ class Map: UIView {
     private var start: Node!
     private var end: Node!
     
-    private var findingPath: Bool = false
+    public var findingPath: Bool = false
     
-    public init() {
+    public init(_ maze: Maze) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         self.backgroundColor = .white
         
-        clear()
-        
+        let maker = MapMaker(width, height, size)
+        switch maze {
+        case Maze.blank:
+            clear()
+            break
+        case Maze.basicRandomMaze:
+            grid = maker.getBasicRandomMaze()
+            start = maker.getStart()
+            end = maker.getEnd()
+            break
+        }
+        self.setNeedsDisplay()
     }
     
     public func getGrid() -> [[Node]] {
@@ -26,6 +36,10 @@ class Map: UIView {
             var row = [Node]()
             for i in 0..<width/size {
                 row.append(grid[j][i].copy())
+                row[i].visited = false
+                if row[i].type == .chosen {
+                    row[i].type = .none
+                }
             }
             gridCopy.append(row)
         }
@@ -175,15 +189,18 @@ class Map: UIView {
             start = newGrid[start.j][start.i]
             end = newGrid[end.j][end.i]
             self.setNeedsDisplay()
-            showPath(end.previousNode!)
+            if end.previousNode != nil {
+                showPath(end.previousNode!)
+            }
         }
     }
     
     public func clearPath() {
-        if start.visited == true {
+        if start.visited == true || end.previousNode != nil {
+            start.visited = false
             grid = getGrid()
+            self.setNeedsDisplay()
         }
-        self.setNeedsDisplay()
     }
     
     private func showPath(_ currentNode: Node) {

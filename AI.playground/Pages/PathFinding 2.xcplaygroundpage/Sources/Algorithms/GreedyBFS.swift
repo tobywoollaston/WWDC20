@@ -1,6 +1,6 @@
 import Foundation
 
-class Astar {
+class GreedyBFS {
     
     private var openSet: [Node]
     private let grid: [[Node]]
@@ -28,15 +28,14 @@ class Astar {
                     row.append(Int.max)
                 } else {
                     let h = abs(i - end.i) + abs(j - end.j)
-//                    let h = powf(powf(Float(abs(i - end.i)), 2) + powf(Float(abs(j - end.j)), 2), 0.5)
+                    //                    let h = powf(powf(Float(abs(i - end.i)), 2) + powf(Float(abs(j - end.j)), 2), 0.5)
                     row.append(h)
                 }
             }
             heuristic.append(row)
         }
         
-        start.distance = 0
-        start.heuristic = 0 + heuristic[start.j][start.i]
+        start.heuristic = heuristic[start.j][start.i]
         openSet.append(start)
         
         while openSet.count > 0 {
@@ -65,8 +64,7 @@ class Astar {
         if i < grid[0].count && i >= 0 && j < grid.count && j >= 0 {
             let n = grid[j][i]
             if n.visited == false && n.previousNode == nil && n.type != NodeType.wall {
-                n.distance = prevNode.distance + 1
-                n.heuristic = n.distance + heuristic[n.j][n.i]
+                n.heuristic = heuristic[n.j][n.i]
                 n.previousNode = prevNode
                 openSet.append(n)
             }
