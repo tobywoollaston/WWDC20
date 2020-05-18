@@ -98,6 +98,10 @@ class MenuBar: UIView {
         }
     }
     
+    public func setStatus(_ message: String) {
+        statusLabel.text = "Status: " + message
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -28,13 +28,12 @@ class Dijkstra {
             }
             
             let current = openSet.removeFirst()
+            current.visited = true
+            visitedOrder.append(current)
             if current.i == end.i && current.j == end.j {
                 openSet.removeAll()
                 continue
             }
-            
-            current.visited = true
-            visitedOrder.append(current)
             
             addNeighbour(current.i + 1, current.j, prevNode: current)
             addNeighbour(current.i - 1, current.j, prevNode: current)

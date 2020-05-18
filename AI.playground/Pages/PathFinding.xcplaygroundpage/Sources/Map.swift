@@ -31,8 +31,10 @@ class Map: UIView {
             grid = maker.getMazeTest()
             break
         }
-        start = maker.getStart()
-        end = maker.getEnd()
+        if maze != .blank {
+            start = maker.getStart()
+            end = maker.getEnd()
+        }
         self.setNeedsDisplay()
     }
     
@@ -197,6 +199,8 @@ class Map: UIView {
             self.setNeedsDisplay()
             if end.previousNode != nil {
                 showPath(end.previousNode!)
+            } else {
+                findingPath = false
             }
         }
     }

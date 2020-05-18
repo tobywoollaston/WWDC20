@@ -19,4 +19,8 @@ public class BasicRobot {
         actions.append(action)
     }
     
+    public func getActions() -> [Actions] {
+        return actions
+    }
+    
 }

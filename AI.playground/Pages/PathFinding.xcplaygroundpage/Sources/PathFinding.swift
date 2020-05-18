@@ -10,6 +10,7 @@ public enum Maze {
 public class PathFinding: UIView {
     
     private var map: Map!
+    private var menus: MenuBar!
     
     public init(_ maze: Maze) {
         super.init(frame: CGRect(x: 0, y: 0, width: 700, height: 700))
@@ -27,7 +28,7 @@ public class PathFinding: UIView {
         map = Map(maze)
         self.addSubview(map)
         
-        let menus = MenuBar(self)
+        menus = MenuBar(self)
         menus.frame = CGRect(x: 0, y: 650, width: 700, height: 50)
         self.addSubview(menus)
     }
@@ -38,7 +39,7 @@ public class PathFinding: UIView {
     
     public func findPath(_ algorithm: Algorithms) {
         if !map.findingPath {
-//            MapMaker.printWalls(map.getGrid())
+            menus.setStatus("Searching")
             map.clearPath()
             var visitedNodes = [Node]()
             var newGrid = [[Node]]()
@@ -61,6 +62,9 @@ public class PathFinding: UIView {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 self.map.show(visitedNodes, newGrid)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + (0.012*Double(visitedNodes.count)), execute: {
+                self.menus.setStatus("Finished")
             })
         }
     }
