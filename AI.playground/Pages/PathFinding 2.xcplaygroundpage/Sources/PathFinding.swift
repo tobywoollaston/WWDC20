@@ -3,6 +3,8 @@ import UIKit
 public enum Maze {
     case blank
     case basicRandomMaze
+    case zigZag
+    case mazeTest
 }
 
 public class PathFinding: UIView {
@@ -36,6 +38,7 @@ public class PathFinding: UIView {
     
     public func findPath(_ algorithm: Algorithms) {
         if !map.findingPath {
+//            MapMaker.printWalls(map.getGrid())
             map.clearPath()
             var visitedNodes = [Node]()
             var newGrid = [[Node]]()

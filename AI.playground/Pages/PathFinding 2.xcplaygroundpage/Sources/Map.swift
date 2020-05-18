@@ -23,10 +23,16 @@ class Map: UIView {
             break
         case Maze.basicRandomMaze:
             grid = maker.getBasicRandomMaze()
-            start = maker.getStart()
-            end = maker.getEnd()
+            break
+        case Maze.zigZag:
+            grid = maker.getZigZagMaze()
+            break
+        case Maze.mazeTest:
+            grid = maker.getMazeTest()
             break
         }
+        start = maker.getStart()
+        end = maker.getEnd()
         self.setNeedsDisplay()
     }
     
@@ -137,10 +143,10 @@ class Map: UIView {
                     return
                 }
                 
-                if ((i == start.i && j == start.j) || movingStart) && (i != end.i && j != end.j) {
+                if ((i == start.i && j == start.j) || movingStart) && !(i == end.i && j == end.j){
                     movingStart = true
                     moveStart(i, j)
-                } else if ((i == end.i && j == end.j) || movingEnd) && (i != start.i && j != start.j) {
+                } else if ((i == end.i && j == end.j) || movingEnd) && !(i == start.i && j == start.j) {
                     movingEnd = true
                     moveEnd(i, j)
                 } else {

@@ -2,6 +2,6 @@
 
 import PlaygroundSupport
 
-PlaygroundPage.current.liveView = PathFinding(.basicRandomMaze)
+PlaygroundPage.current.liveView = PathFinding(.mazeTest)
 
 //: [Next](@next)
